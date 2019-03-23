@@ -2,9 +2,21 @@ package pl.sda.addressbook.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 
 
 public class Person {
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name=" + name +
+                ", lastname=" + lastname +
+                ", address=" + address +
+                ", tel=" + tel +
+                ", postCode=" + postCode +
+                ", city=" + city +
+                '}';
+    }
 
     private StringProperty name;
     private StringProperty lastname;
@@ -93,4 +105,6 @@ public class Person {
     public void setCity(String city) {
         this.city.set(city);
     }
+
+
 }

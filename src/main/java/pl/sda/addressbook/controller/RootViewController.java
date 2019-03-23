@@ -1,11 +1,16 @@
 package pl.sda.addressbook.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import pl.sda.addressbook.Main;
 import pl.sda.addressbook.model.Person;
 
@@ -54,6 +59,23 @@ public class RootViewController implements Initializable {
         this.main = main;
     }
 
+    public void newPerson() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/nowaOsoba.fxml"));
+        loader.load();
+
+        Parent root = loader.getRoot();
+        NowaOsobaController nowaOsobaController = loader.getController();
+        nowaOsobaController.setMain(this.main);
+//        RootViewController rootViewController = loader.getController();
+//        rootViewController.setMain(this);
+//        rootViewController.loadPerson();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
     public void loadPerson(){
         System.out.println(getMain().getPersonList());
         personTableView.setItems(getMain().getPersonList());
@@ -64,5 +86,17 @@ public class RootViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        System.out.println(this.main.getPersonList());
+    }
+
+    public void selectedPerson(MouseEvent mouseEvent) {
+        Person person = personTableView.getSelectionModel().getSelectedItem();
+        System.out.println(person);
+        nameLabel.setText(person.getName());
+        lastnameLabel.setText(person.getLastname());
+        addressLabel.setText(person.getAddress());
+        postcodeLabel.setText(person.getPostCode());
+        telephoneLabel.setText(person.getTel());
+        cityLabel.setText(person.getCity());
+
     }
 }
